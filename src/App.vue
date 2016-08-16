@@ -1,8 +1,8 @@
 <template>
     <div id="app">
         <reader-header v-show="showToolbar"></reader-header>
-        <reader :chapters="chapters"></reader>
-        <reader-footer v-show="showToolbar"></reader-footer>
+        <reader :chapters="chapters" :custom-style="readerStyle"></reader>
+        <reader-footer v-show="showToolbar" :></reader-footer>
         <div class="toolbar-trigger" @click="triggerToolbar"></div>
     </div>
 </template>
@@ -11,6 +11,31 @@
     import Reader from './components/Reader.vue'
     import ReaderHeader from './components/TopToolbar.vue'
     import ReaderFooter from './components/BottomToolbar.vue'
+
+    const Background = {
+        '1': {
+            bg: '#f7eee5',
+            color: '#333'
+        },
+        '2': {
+            bg: '#e9dfc7',
+            color: '#333'
+        },
+        '3': {
+            bg: '#a4a4a4',
+            color: '#333'
+        },
+        '4': {
+            bg: '#cdefce',
+            color: '#333'
+        },
+        '5': {
+            bg: '#283548',
+            color: '#7685a2'
+        }
+    }
+
+    const largestFontSize = 20;
 
     export default {
         data() {
@@ -28,13 +53,34 @@
                         '这个过程，无可避免地，伴随着压力。但他们并没有想从压力中逃开。',
                         '该怎么看待压力呢？我们以前的观点，压力是可怕的，是各种心理问题的罪魁祸首。压力会导致焦虑、抑郁、强迫、拖延、酗酒、离婚……因为所有的痛苦，都伴随着压力。而本书作者却要为压力平反，说真正有害的不是压力，而是“压力有害”的观点。作者的视角脱离开了压力的框架，谈思维模式，谈压力下的成长，谈投入、联结和人生意义。当她从生活本身来探讨压力时，总是能发现一些不一样的东西。'
                         ]
-                }]
+                }],
+                readerStyle: {
+                    backgroundColor: Background[1].bg,
+                    fontSize: 14,
+                    color: Background[1].color
+                }
             }
         },
         methods: {
             triggerToolbar: function() {
                 this.showToolbar = !this.showToolbar;
                 this.$broadcast('toolbarTriggered');
+            }
+        },
+        events: {
+            'largerFontSize': function() {
+                if(this.readerStyle.fontSize < largestFontSize) {
+                    this.readerStyle.fontSize = this.readerStyle.fontSize + 1;               
+                }
+            },
+            'smallerFontSize': function() {
+                this.readerStyle.fontSize = this.readerStyle.fontSize - 1;
+            },
+            'backgroundColorChanged': function(bg) {
+                if(Background[bg]) {
+                    this.readerStyle.backgroundColor = Background[bg].bg;
+                    this.readerStyle.color = Background[bg].color;
+                }
             }
         },
         components: {

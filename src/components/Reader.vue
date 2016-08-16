@@ -1,13 +1,15 @@
 <template>
-    <div class="reader-content" v-for="chapter in chapters">
-        <h4 class="chapter-title">{{chapter.title}}</h4>
-        <p class="chapter-content" v-for="content in chapter.contents">{{content}}</p>
+    <div class="reader-content" :style="{color: customStyle.color,backgroundColor: customStyle.backgroundColor, fontSize: customStyle.fontSize + 'px' }" v-for="chapter in chapters">
+        <div>
+            <h4 class="chapter-title">{{chapter.title}}</h4>
+            <p class="chapter-content" v-for="content in chapter.contents">{{content}}</p>
+        </div>
     </div>
 </template>
 
 <script>
     export default {
-        props: ['chapters']
+        props: ['chapters','customStyle']
     }
 </script>
 
