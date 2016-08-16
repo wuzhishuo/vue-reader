@@ -1,9 +1,9 @@
 <template>
     <div class="reader-header">
-        <a href="#" class="reader-back">
+        <a href="javascript:void(0)" class="reader-back">
             <span class="back-icon"></span>返回
         </a>
-        <a href="" class="reader-more"></a>
+        <a href="javascript:void(0)" class="reader-more"></a>
     </div>
 </template>
 

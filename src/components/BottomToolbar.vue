@@ -1,26 +1,26 @@
 <template>
     <div class="reader-footer">
         <div class="chapter-info-container">
-            <a href="#" class="pre-chapter">上一章</a>
+            <a href="javascript:void(0)" class="pre-chapter">上一章</a>
             <span class="chapter-info">14/100</span>
-            <a href="#" class="next-chapter">下一章</a>
+            <a href="javascript:void(0)" class="next-chapter">下一章</a>
         </div>
         <div class="actions-footer">
-            <a href="#" class="action-item action-menu">
+            <a href="javascript:void(0)" class="action-item action-menu">
                 <span class="action-icon icon-menu"></span> 目录
             </a>
-            <a href="#" class="action-item action-font">
-                <span class="action-icon icon-font"></span> 字体
+            <a href="javascript:void(0)" class="action-item action-font" @click="showFontSettings">
+                <span class="action-icon" :class="showFontSetting? 'icon-font-selected': 'icon-font'"></span> 字体
             </a>
-            <a href="#" class="action-item action-mode">
+            <a href="javascript:void(0)" class="action-item action-mode">
                 <span class="action-icon icon-moon"></span> 夜间
             </a>
-            <a href="#" class="action-item action-download">
+            <a href="javascript:void(0)" class="action-item action-download">
                 <span class="action-icon icon-download"></span> 下载
             </a>
         </div>
+        <font-setting v-show="showFontSetting"></font-setting>
     </div>
-    <font-setting></font-setting>
 </template>
 
 <script>
@@ -29,6 +29,21 @@
     export default {
         components: {
             FontSetting
+        },
+        data() {
+            return {
+                showFontSetting: false
+            }
+        },
+        methods: {
+            showFontSettings: function() {
+                this.showFontSetting = !this.showFontSetting;
+            }
+        },
+        events: {
+            'toolbarTriggered': function() {
+                this.showFontSetting = false;
+            }
         }
     }
 </script>
@@ -75,8 +90,8 @@
         }
         .action-icon {
             display: block;
-            height: 13px;
-            width: 18px;
+            height: 15px;
+            width: 22px;
             margin: 0 auto;
             margin-bottom: 8px;
             background-repeat: no-repeat;
@@ -89,6 +104,10 @@
 
         .icon-font {
             background-image: url('../assets/font.png');
+        }
+
+        .icon-font-selected {
+            background-image: url('../assets/font-selected.png');
         }
 
         .icon-moon {
