@@ -12,8 +12,11 @@
             <a href="javascript:void(0)" class="action-item action-font" @click="showFontSettings">
                 <span class="action-icon" :class="showFontSetting? 'icon-font-selected': 'icon-font'"></span> 字体
             </a>
-            <a href="javascript:void(0)" class="action-item action-mode">
+            <a href="javascript:void(0)" class="action-item action-mode" @click="changeMode" v-show="mode=='day'">
                 <span class="action-icon icon-moon"></span> 夜间
+            </a>
+            <a href="javascript:void(0)" class="action-item action-mode" @click="changeMode" v-else>
+                <span class="action-icon icon-sun"></span> 白天
             </a>
             <a href="javascript:void(0)" class="action-item action-download">
                 <span class="action-icon icon-download"></span> 下载
@@ -30,6 +33,10 @@
         components: {
             FontSetting
         },
+        props: {
+            mode: String,
+            default: 'day'
+        },
         data() {
             return {
                 showFontSetting: false
@@ -38,6 +45,9 @@
         methods: {
             showFontSettings: function() {
                 this.showFontSetting = !this.showFontSetting;
+            },
+            changeMode: function() {
+                this.$dispatch('modeTriggered');
             }
         },
         events: {
@@ -96,6 +106,7 @@
             margin-bottom: 8px;
             background-repeat: no-repeat;
             background-size: contain;
+            background-position: center;
         }
 
         .icon-menu {
@@ -112,6 +123,12 @@
 
         .icon-moon {
             background-image: url('../assets/moon.png');
+        }
+
+        .icon-sun {
+            background-image: url('../assets/sun.png');
+            width: 19px;
+            height: 18px;
         }
 
         .icon-download {

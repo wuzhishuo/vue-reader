@@ -15,7 +15,7 @@
 
 <style lang="sass">
     .reader-content { 
-        padding: 15px;
+        padding: 10px;
         font-size: 14px;
         color: #555;
         max-width: 680px;

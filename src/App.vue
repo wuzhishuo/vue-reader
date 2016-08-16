@@ -2,7 +2,7 @@
     <div id="app">
         <reader-header v-show="showToolbar"></reader-header>
         <reader :chapters="chapters" :custom-style="readerStyle"></reader>
-        <reader-footer v-show="showToolbar" :></reader-footer>
+        <reader-footer v-show="showToolbar" :mode="mode"></reader-footer>
         <div class="toolbar-trigger" @click="triggerToolbar"></div>
     </div>
 </template>
@@ -32,6 +32,10 @@
         '5': {
             bg: '#283548',
             color: '#7685a2'
+        },
+        'night': {
+            bg: '#0f1410',
+            color: '#4e534f'
         }
     }
 
@@ -58,7 +62,9 @@
                     backgroundColor: Background[1].bg,
                     fontSize: 14,
                     color: Background[1].color
-                }
+                },
+                selectedBackground: '1',
+                mode: 'day'
             }
         },
         methods: {
@@ -77,9 +83,22 @@
                 this.readerStyle.fontSize = this.readerStyle.fontSize - 1;
             },
             'backgroundColorChanged': function(bg) {
-                if(Background[bg]) {
+                if(Background[bg] && this.mode === 'day') {
                     this.readerStyle.backgroundColor = Background[bg].bg;
                     this.readerStyle.color = Background[bg].color;
+                }
+                 
+                this.selectedBackground = bg;
+            },
+            'modeTriggered': function() {
+                if(this.mode === 'night') {
+                    this.mode = 'day';
+                    this.readerStyle.backgroundColor = Background[this.selectedBackground].bg;
+                    this.readerStyle.color = Background[this.selectedBackground].color;
+                } else {
+                    this.mode = 'night';
+                    this.readerStyle.backgroundColor = Background.night.bg;
+                    this.readerStyle.color = Background.night.color;
                 }
             }
         },
