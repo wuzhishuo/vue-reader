@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/wuzhishuo/vue-reader#readme",
   "dependencies": {
+    "iscroll": "^5.2.0",
     "vue": "^1.0.26"
   },
   "devDependencies": {

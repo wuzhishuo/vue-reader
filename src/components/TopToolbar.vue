@@ -15,13 +15,15 @@
 
 <style>
     .reader-header {
-        position: fixed;
+        position: absolute;
+        top: 0;
         height: 50px;
         width: 100%;
         line-height: 50px;
         color: #fff;
         background: rgba(0,0,0,.9);
         font-size: 13px;
+        z-index: 99999;
     }
 
     .reader-back, .reader-more {

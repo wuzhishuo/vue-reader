@@ -43,12 +43,13 @@
 
 <style lang="sass">
     .font-settings {
-        position: fixed;
+        position: absolute;
         bottom: 70px;
         background: rgba(0,0,0,.9);
         color: #fff;
         width: 100%;
         padding-top: 15px;
+        z-index: 99999;
     }
     
     .setting-name,.setting-options {

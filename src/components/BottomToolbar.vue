@@ -1,9 +1,9 @@
 <template>
     <div class="reader-footer">
         <div class="chapter-info-container">
-            <a href="javascript:void(0)" class="pre-chapter">上一章</a>
-            <span class="chapter-info">14/100</span>
-            <a href="javascript:void(0)" class="next-chapter">下一章</a>
+            <a href="javascript:void(0)" class="pre-chapter" @click="getPreChapter">上一章</a>
+            <span class="chapter-info">{{readingChapter}}/{{chapterTotal}}</span>
+            <a href="javascript:void(0)" class="next-chapter" @click="getNextChapter">下一章</a>
         </div>
         <div class="actions-footer">
             <a href="javascript:void(0)" class="action-item action-menu">
@@ -34,8 +34,18 @@
             FontSetting
         },
         props: {
-            mode: String,
-            default: 'day'
+            mode: {
+                type: String,
+                default: 'day'
+            },
+            chapterTotal: {
+                type: Number,
+                required: true
+            },
+            readingChapter: {
+                type: Number,
+                required: true
+            }
         },
         data() {
             return {
@@ -48,6 +58,12 @@
             },
             changeMode: function() {
                 this.$dispatch('modeTriggered');
+            },
+            getNextChapter: function() {
+                this.$dispatch('requestNextChapter');
+            },
+            getPreChapter: function() {
+                this.$dispatch('requestPreChapter');
             }
         },
         events: {
@@ -61,11 +77,12 @@
 <style lang="sass">
     .reader-footer {
         width: 100%;
-        position: fixed;
+        position: absolute;
         bottom: 0;
         background: rgba(0, 0, 0, .9);
         color: #fff;
         font-size: 13px;
+        z-index: 99999;
     }
     
     .chapter-info-container {
