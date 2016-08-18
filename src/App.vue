@@ -2,7 +2,7 @@
     <div id="app" :style="{backgroundColor: readerStyle.backgroundColor}">
         <reader :chapters="chapters" :custom-style="readerStyle" :is-loading="isLoading"></reader>
         <reader-header v-show="showToolbar"></reader-header>
-        <reader-footer v-show="showToolbar" :mode="mode" :chapter-total="chapterTotal" :reading-chapter="readingChapter"></reader-footer>
+        <reader-footer v-show="showToolbar" :mode="mode" :chapter-total="chapterTotal" :reading-chapter="readingChapter" :selected-background="selectedBackground"></reader-footer>
         <div class="toolbar-trigger" @click="triggerToolbar"></div>
     </div>
 </template>
@@ -43,6 +43,18 @@
     }
 
     const largestFontSize = 20;
+    var defaultMode = localStorage.getItem('mode') ? localStorage.getItem('mode') : 'day';
+    var selectedBackground = localStorage.getItem('background')? localStorage.getItem('background') : '1';
+
+    var defaultBackground;
+    if(defaultMode === 'day') {
+       defaultBackground = selectedBackground;
+    } else {
+        defaultBackground = 'night';
+    }
+
+    var defaultFontSize = localStorage.getItem('font_size')? localStorage.getItem('font_size'): 14;
+    var readingChapter = localStorage.getItem('reading_chapter')? parseInt(localStorage.getItem('reading_chapter')): 1;
 
     export default {
         data() {
@@ -50,23 +62,22 @@
                 showToolbar: false,
                 chapters: [],
                 chapterTotal: 100,
-                readingChapter: 1,
-                lastChapter: 0, //目前取到的最大章节
+                readingChapter: readingChapter,
+                lastChapter: readingChapter-1, //目前取到的最大章节
                 readerStyle: {
-                    backgroundColor: Background[1].bg,
-                    fontSize: 14,
-                    color: Background[1].color
+                    backgroundColor: Background[defaultBackground].bg,
+                    fontSize: defaultFontSize,
+                    color: Background[defaultBackground].color
                 },
-                selectedBackground: '1',
-                mode: 'day',
+                selectedBackground: selectedBackground,
+                mode: defaultMode,
                 readerScroll: null,
                 isLoading: false
             }
         },
         ready: function() {
             this.readerScroll = new IScroll('#app',{
-                mouseWheel: true,
-                scrollbars: true
+                mouseWheel: true
             });
 
             this.getNextChapter(true);
@@ -117,11 +128,15 @@
                             ]
                     });
                     that.readingChapter = that.lastChapter;
+                    localStorage.setItem('reading_chapter', that.readingChapter);
+                    
                     that.isLoading = false;
 
                     Vue.nextTick(function(){
                         if(that.readerScroll) {
+                            var maxScrollY = that.readerScroll.maxScrollY;
                             that.readerScroll.refresh();
+                            that.readerScroll.scrollTo(0,maxScrollY-50);
                         }
                         if(isClearCache) {
                             that.readerScroll.scrollTo(0,0);
@@ -157,6 +172,7 @@
                 });
 
                 this.readingChapter = this.lastChapter;
+                localStorage.setItem('reading_chapter', this.readingChapter);
 
                 var that = this;
                 Vue.nextTick(function(){
@@ -171,6 +187,7 @@
             'largerFontSize': function() {
                 if(this.readerStyle.fontSize < largestFontSize) {
                     this.readerStyle.fontSize = this.readerStyle.fontSize + 1; 
+                    localStorage.setItem('font_size', this.readerStyle.fontSize);
 
                     var that = this;
                     Vue.nextTick(function(){
@@ -182,6 +199,8 @@
             },
             'smallerFontSize': function() {
                 this.readerStyle.fontSize = this.readerStyle.fontSize - 1;
+                localStorage.setItem('font_size', this.readerStyle.fontSize);
+                
 
                 var that = this;
                 Vue.nextTick(function(){ 
@@ -197,6 +216,7 @@
                 }
 
                 this.selectedBackground = bg;
+                localStorage.setItem('background',bg);
             },
             'modeTriggered': function() {
                 if(this.mode === 'night') {
@@ -208,6 +228,8 @@
                     this.readerStyle.backgroundColor = Background.night.bg;
                     this.readerStyle.color = Background.night.color;
                 }
+
+                localStorage.setItem('mode', this.mode);
             },
             'requestNextChapter': function() {
                 this.getNextChapter(true);

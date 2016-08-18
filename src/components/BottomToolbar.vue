@@ -22,7 +22,7 @@
                 <span class="action-icon icon-download"></span> 下载
             </a>
         </div>
-        <font-setting v-show="showFontSetting"></font-setting>
+        <font-setting v-show="showFontSetting" :selected-background="selectedBackground"></font-setting>
     </div>
 </template>
 
@@ -45,7 +45,8 @@
             readingChapter: {
                 type: Number,
                 required: true
-            }
+            },
+            selectedBackground: String
         },
         data() {
             return {
