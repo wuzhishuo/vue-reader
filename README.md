@@ -1,2 +1,2 @@
-# vie-reader
+# vue-reader
 a book reader created by Vue

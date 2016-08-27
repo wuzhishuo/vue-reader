@@ -251,9 +251,9 @@
         height: 100%;
     }
 
-    html,#app {
+    /*html,#app {
         overflow-y: scroll;
-    }
+    }*/
 
     #app {
         position: relative;
