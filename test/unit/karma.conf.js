@@ -18,7 +18,7 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha'],
+    frameworks: ['mocha','chai'],
 
 
     // list of files / patterns to load in the browser
@@ -64,7 +64,7 @@ module.exports = function(config) {
 
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
+    autoWatch: true,
 
 
     // start these browsers
@@ -78,6 +78,14 @@ module.exports = function(config) {
 
     // Concurrency level
     // how many browser should be started simultaneous
-    concurrency: Infinity
+    concurrency: Infinity,
+
+    plugins : [
+      'karma-mocha',
+      'karma-chai',
+      'karma-mocha-reporter',
+      'karma-webpack',
+      'karma-phantomjs-launcher'
+    ]
   })
 }

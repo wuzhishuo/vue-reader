@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --inline --hot",
-    "build": "webpack -p"
+    "build": "webpack -p",
+    "test": "karma start test/unit/karma.conf.js"
   },
   "repository": {
     "type": "git",
@@ -35,13 +36,18 @@
     "css-loader": "^0.23.1",
     "file-loader": "^0.9.0",
     "karma": "^1.2.0",
+    "karma-chai": "^0.1.0",
     "karma-mocha": "^1.1.1",
     "karma-mocha-reporter": "^2.1.0",
     "karma-phantomjs-launcher": "^1.0.1",
+    "karma-sinon": "^1.0.5",
+    "karma-sinon-chai": "^1.2.3",
     "karma-webpack": "^1.8.0",
     "mocha": "^3.0.2",
     "node-sass": "^3.8.0",
     "sass-loader": "^4.0.0",
+    "sinon": "git+https://github.com/sinonjs/sinon.git",
+    "sinon-chai": "^2.8.0",
     "url-loader": "^0.5.7",
     "vue-hot-reload-api": "^2.0.6",
     "vue-html-loader": "^1.2.3",
