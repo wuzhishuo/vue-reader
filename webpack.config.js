@@ -1,3 +1,5 @@
+var webpack = require('webpack')
+
 module.exports = {
     entry: './src/main.js',
     output: {
@@ -26,7 +28,16 @@ module.exports = {
       
         ]
     },
-    node: {
-        fs: "empty"
-    }
+    plugins: [
+        new webpack.HotModuleReplacementPlugin()
+    ],
+    devServer: {
+        proxy: {
+        '/api/*': {
+            target: 'http://localhost:3000/',
+            secure: false,
+            pathRewrite: {'^/api/*' : ''}
+        }
+        }
+  }
 }

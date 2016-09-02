@@ -4,7 +4,7 @@
   "description": "a book reader created by Vue",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --inline --hot",
+    "dev": "webpack-dev-server --inline --hot & node_modules/.bin/json-server data/db.js --routes data/routes.json",
     "build": "webpack -p",
     "test": "karma start test/unit/karma.conf.js"
   },
@@ -35,6 +35,7 @@
     "chai": "^3.5.0",
     "css-loader": "^0.23.1",
     "file-loader": "^0.9.0",
+    "json-server": "^0.8.19",
     "karma": "^1.2.0",
     "karma-chai": "^0.1.0",
     "karma-mocha": "^1.1.1",
@@ -44,6 +45,7 @@
     "karma-sinon-chai": "^1.2.3",
     "karma-webpack": "^1.8.0",
     "mocha": "^3.0.2",
+    "mockjs": "^1.0.1-beta3",
     "node-sass": "^3.8.0",
     "sass-loader": "^4.0.0",
     "sinon": "git+https://github.com/sinonjs/sinon.git",
@@ -56,6 +58,7 @@
     "webpack": "^1.13.1",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-dev-server": "^1.14.1",
+    "webpack-hot-middleware": "^2.12.2",
     "webpack-merge": "^0.14.1"
   }
 }

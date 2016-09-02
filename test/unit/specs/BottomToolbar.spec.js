@@ -59,7 +59,7 @@ describe('BottomToolbar',function(){
         expect(component.showFontSetting).to.be.true;
     })
 
-    it('should set "showFontSetting" from 123 true to false when you trigger method showFontSettings',function(){
+    it('should set "showFontSetting" from true to false when you trigger method showFontSettings',function(){
         const component = vm.$refs.component;
         component.showFontSetting = true;
 
