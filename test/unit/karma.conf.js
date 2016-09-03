@@ -5,9 +5,12 @@ var baseConfig = require('../../webpack.config');
 var webpack = require('webpack');
 var merge = require('webpack-merge');
 
-var webpackConfig = baseConfig;
+var webpackConfig = merge(baseConfig,{
+  
+});
 
 delete webpackConfig.entry;
+delete webpackConfig.plugins;
 
 module.exports = function(config) {
   config.set({

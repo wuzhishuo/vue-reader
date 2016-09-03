@@ -1,10 +1,12 @@
-var webpack = require('webpack')
+var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-    entry: './src/main.js',
+    entry: ['whatwg-fetch','./src/main.js'],
     output: {
-        path: './bundle',
-        filename: 'bundle.js'
+        path: 'dist',
+        filename: '[hash]_bundle.js'
     },
     devtool: '#eval-source-map',
     module: {
@@ -28,16 +30,22 @@ module.exports = {
       
         ]
     },
-    plugins: [
-        new webpack.HotModuleReplacementPlugin()
-    ],
     devServer: {
         proxy: {
-        '/api/*': {
-            target: 'http://localhost:3000/',
-            secure: false,
-            pathRewrite: {'^/api/*' : ''}
-        }
-        }
+            '/api/*': {
+                target: 'http://localhost:3000',
+                secure: false,
+            },
+        },
+    },
+    plugins: [
+        new CleanWebpackPlugin(['dist']),
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: 'index.html'
+        }),
+    ],
+  node: {
+      fs: 'empty'
   }
 }
